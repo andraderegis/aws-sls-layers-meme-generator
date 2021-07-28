@@ -1,0 +1,37 @@
+service: meme-maker
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  profile: node-serveless
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+
+package:
+  individually: true
+  excludeDevDependencies: true
+  patterns:
+    - "!./dependencies.zip"
+    - "!./dependencies/"
+    - "!./mock/"
+  # exclude:
+  #   - ./dependencies.zip
+  #   - ./dependencies/
+  #   - ./mock/
+
+functions:
+  mememaker:
+    handler: app/handler.mememaker
+    layers:
+      - { Ref: GmLibraryLambdaLayer }
+    events:
+      - http:
+          method: get
+          path: mememaker
+          cors: true
+
+layers:
+  GmLibrary:
+    path: dependencies
+    package:
+      artifact: dependencies.zip

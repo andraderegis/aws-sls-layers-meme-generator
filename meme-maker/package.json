@@ -1,0 +1,14 @@
+{
+  "name": "meme-maker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "invoke-local": "sls invoke local -f mememaker --docker --logger --path mocks/request.json",
+    "invoke": "sls invoke -f mememaker --logger --path mocks/request.json"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "axios": "^0.21.1"
+  }
+}
